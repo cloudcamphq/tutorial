@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>cloudcamp - it worked!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+  <style>
+    html,
+    body,
+    #main {
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+      height: 100%;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    a,
+    a:visited {
+      font-size: 16px;
+      color: #525252;
+      text-decoration: none;
+    }
+
+    #main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #header {
+      height: 60px;
+      border-bottom: 2px solid #F3F3F3;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 40px;
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    #content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h2 {
+      color: #525252;
+      font-weight: 400;
+      margin-top: 0px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <a href="https://cloudcamphq.com/docs/tutorial">Continue with tutorial</a>
+    </div>
+    <div id="content">
+      <img src="/img/logo.svg" />
+      {{#if visitCounter}}
+      <h2>Awesome, you connected a database! This is visit number {{visitCounter}}. </h2>
+      {{else}}
+      <h2>It worked. Congratulations on your first cloudcamp app!</h2>
+      {{/if}}
+    </div>
+  </div>
+</body>
+
+</html>
