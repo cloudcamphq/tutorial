@@ -1,10 +1,10 @@
-import fs from "fs";
-import path from "path";
-import express from "express";
-import Handlebars from "handlebars";
-import { Pool, QueryResult } from "pg";
+const fs = require("fs");
+const path = require("path");
+const express = require("express");
+const Handlebars = require("handlebars");
+const { Pool } = require("pg");
 
-let connectionPool: Pool | undefined = undefined;
+let connectionPool = undefined;
 let connectionString = process.env["DATABASE_URL"];
 
 if (connectionString) {
@@ -41,12 +41,8 @@ app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
 
-async function qasync(
-  next: any,
-  query: string,
-  values: any[] = []
-): Promise<QueryResult<any>> {
-  return new Promise<QueryResult<any>>((resolve, reject) => {
+async function qasync(next, query, values = []) {
+  return new Promise((resolve, reject) => {
     connectionPool.query(query, values, (err, res) => {
       if (err) {
         return next(err);
@@ -56,7 +52,7 @@ async function qasync(
   });
 }
 
-async function getVisitorCounter(next: any): Promise<number | undefined> {
+async function getVisitorCounter(next) {
   if (connectionPool) {
     await qasync(
       next,
