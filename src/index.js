@@ -21,8 +21,8 @@ app.get("/", async (req, res, next) => {
   const indexTemplate = Handlebars.compile(
     fs.readFileSync("templates/index.html").toString("utf-8")
   );
-  let visitCounter = await getVisitorCounter(next);
-  res.send(indexTemplate({ visitCounter }));
+  let visitsCounter = await getVisitsCounter(next);
+  res.send(indexTemplate({ visitsCounter }));
 });
 
 app.get("/img/logo.svg", (req, res) => {
@@ -52,21 +52,18 @@ async function qasync(next, query, values = []) {
   });
 }
 
-async function getVisitorCounter(next) {
+async function getVisitsCounter(next) {
   if (connectionPool) {
     await qasync(
       next,
-      "CREATE TABLE IF NOT EXISTS visitor_counter AS SELECT 0 as visitor_count;"
+      "CREATE TABLE IF NOT EXISTS visits_counter AS SELECT 0 as visits_count;"
     );
     await qasync(
       next,
-      "UPDATE visitor_counter SET visitor_count = visitor_count + 1;"
+      "UPDATE visits_counter SET visits_count = visits_count + 1;"
     );
-    let result = await qasync(
-      next,
-      "SELECT visitor_count FROM visitor_counter"
-    );
-    return result.rows[0].visitor_count;
+    let result = await qasync(next, "SELECT visits_count FROM visits_counter");
+    return result.rows[0].visits_count;
   } else {
     return undefined;
   }
