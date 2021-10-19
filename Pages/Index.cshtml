@@ -1,0 +1,21 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div id="main">
+    <div id="header">
+        <a href="https://cloudcamphq.com/docs/tutorial">Continue with tutorial</a>
+    </div>
+    <div id="content">
+        <img src="/img/logo.svg" />
+        @if (Model.VisitsCount != 0)
+        {
+            <h2>Awesome, you connected a database! This is visit number @Model.VisitsCount. </h2>
+        }
+        else
+        {
+            <h2>It worked. Congratulations on your first cloudcamp app!</h2>
+        }
+    </div>
+</div>
